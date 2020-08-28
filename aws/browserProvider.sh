@@ -17,7 +17,7 @@ aws ec2 run-instances \
   --count 1:$NUM_INSTANCES >/dev/null
 
 # Wait for the instances to be running
-INSTANCES=$(aws ec2 describe-instances --filters Name=tag:Type,Values=OpenViduLoadTest,Name=instance-state-name,Values=pending | jq -r ' .Reservations[] | .Instances[] | .InstanceId')
+INSTANCES=$(aws ec2 describe-instances --filters Name=tag:Type,Values=OpenViduLoadTest Name=instance-state-name,Values=pending | jq -r ' .Reservations[] | .Instances[] | .InstanceId')
 aws ec2 wait instance-running --instance-ids $INSTANCES
 
-aws ec2 describe-instances --filters Name=tag:Type,Values=OpenViduLoadTest,Name=instance-state-name,Values=running
+aws ec2 describe-instances --filters Name=tag:Type,Values=OpenViduLoadTest Name=instance-state-name,Values=running
